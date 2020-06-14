@@ -54,7 +54,9 @@ public class HouseHoldServiceApplication
     @Override
     public void run(final HouseHoldServiceConfiguration configuration,
                     final Environment environment) {
-
+        // Vytvorené objekty reprezentujúce REST rozhranie
+        environment.jersey()
+                .register(new HouseHoldResource(null, null));
     }
 
 }
