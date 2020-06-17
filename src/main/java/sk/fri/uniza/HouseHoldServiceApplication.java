@@ -22,6 +22,25 @@ import sk.fri.uniza.resources.IoTNodeResource;
 public class HouseHoldServiceApplication
         extends Application<HouseHoldServiceConfiguration> {
 
+    // Vytvorenie Hibernate baliká: tento balík kombinuje objekt určený na
+    // nastavenie Hibernat a samotnú knižnicu Hibernate
+    private final HibernateBundle<HouseHoldServiceConfiguration> hibernate =
+            // Všetky triedy(v žargóne Hibernate sú označované ako Entity),
+            // ktoré tvoria model musia byť prídané do Bundle
+            new HibernateBundle<HouseHoldServiceConfiguration>(
+                    HouseHold.class,
+                    IotNode.class,
+                    Field.class,
+                    DataDouble.class,
+                    DataString.class,
+                    DataInteger.class,
+                    ContactPerson.class) {
+                @Override
+                public DataSourceFactory getDataSourceFactory(
+                        HouseHoldServiceConfiguration configuration) {
+                    return configuration.getDataSourceFactory();
+                }
+            };
 
     public static void main(final String[] args) throws Exception {
         new HouseHoldServiceApplication().run(args);
@@ -46,6 +65,8 @@ public class HouseHoldServiceApplication
             }
         });
 
+        // Pripojený balík Hibernate (ORM databáza)
+        bootstrap.addBundle(hibernate);
     }
 
     // V rámci životného cyklu, je táto metóda zavolaná až po metóde initialize.
