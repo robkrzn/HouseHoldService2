@@ -48,37 +48,60 @@ public class HouseHoldResource {
     }
 
 
-    public AbstractData addData(Long hhId,
-                                String fieldID,
+    @POST // JAX-RS
+    @Path("{householdID}/{fieldID}") // JAX-RS
+    @UnitOfWork //Otvorí novú hibernate session //Dropwizzard
+    @ApiOperation(value = "Pridá nové dáta") // Swagger
+    public AbstractData addData(@PathParam("householdID")/* JAX-RS */ Long hhId,
+                                @PathParam("fieldID")/*JAX-RS*/ String fieldID,
                                 AbstractData data) {
-        return null;
+        return dataDAO.create(hhId, fieldID, data);
     }
 
-
-    public List<AbstractData> getData(Long hhId,
-                                      String fieldID,
-                                      final LocalDateTime from,
-                                      final LocalDateTime to) {
-        return null;
+    @GET // JAX-RS
+    @Path("{householdID}/{fieldID}") // JAX-RS
+    @UnitOfWork //Otvorí novú hibernate session // Dropwizzard
+    @ApiOperation(value = "Získanie dát o konkrétnej domácnosti a konkrétneho" +
+            " typu") // Swagger
+    public List<AbstractData> getData(
+            @PathParam("householdID")/*JAX-RS*/ Long hhId,
+            @PathParam("fieldID")/*JAX-RS*/ String fieldID,
+            @QueryParam("from") /*JAX-RS*/
+            @DateTimeFormat("dd/MM/yyyy HH:mm")
+            /*VLASTNÉ*/
+            @ApiParam(format = "dd/MM/yyyy HH:mm")
+            //SWAGGER
+            final LocalDateTime from,
+            @QueryParam("to")
+            @DateTimeFormat("dd/MM/yyyy HH:mm")
+            @ApiParam(format = "dd/MM/yyyy HH:mm") final LocalDateTime to) {
+        return dataDAO.findData(hhId, fieldID, from, to);
     }
 
     @POST /*JAX-RS*/
     @UnitOfWork //Otvorí novú hibernate session // Dropwizard
     @ApiOperation(value = "Pridanie novej domácnosti")
     public HouseHold createHouseHold(@Valid HouseHold houshold) {
-        return houshold;
+        return houseHoldDAO.create(houshold);
     }
 
+    @PUT /*JAX-RS*/
+    @Path("{id}") /*JAX-RS*/
+    @UnitOfWork //Otvorí novú hibernate session // Dropwizard
+    @ApiOperation(value = "Úprava existujúcej domácnosti")
     public HouseHold updateHouseHold(
-            Long id,
+            @ApiParam(value = "ID", required = true) @PathParam("id") Long id,
             @Valid HouseHold houshold) {
         houshold.setId(id);
-        return null;
+        return houseHoldDAO.update(houshold);
     }
 
 
+    @GET
+    @UnitOfWork //Otvorí novú hibernate session
+    @ApiOperation(value = "Zoznam všetkých domácnosti")
     public List<HouseHold> listHouseHold() {
-        return null;
+        return houseHoldDAO.findAll();
     }
 
     @GET //HTTP metóda
@@ -86,15 +109,27 @@ public class HouseHoldResource {
     @UnitOfWork //Otvorí novú hibernate session
     @ApiOperation(value = "Údaje o konkrétnej domácnosť")
     public HouseHold getHouseHold(
-            @ApiParam(required = true)
-            @PathParam("id") Long id) {
-        return new HouseHold();
+            @ApiParam(value = "ID", required = true) @PathParam("id") Long id) {
+        return houseHoldDAO.findById(id);
     }
 
 
+    @GET
+    @Path("filter")
+    @UnitOfWork //Otvorí novú hibernate session
+    @ApiOperation(value = "Vyfiltrovaný zoznam domácnosti")
     public List<HouseHold> filterHouseHold(
-            FilterEnum filter,
-            String value) {
+            @QueryParam("filter") FilterEnum filter,
+            @QueryParam("value") String value) {
+
+        switch (filter) {
+            case zip:
+                return houseHoldDAO.findByZip(value);
+            case firstName:
+                return houseHoldDAO.findByFirstName(value);
+            case lastName:
+                return houseHoldDAO.findByLastName(value);
+        }
 
         return null;
     }

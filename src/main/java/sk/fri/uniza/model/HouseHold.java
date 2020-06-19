@@ -10,6 +10,19 @@ import javax.validation.constraints.Pattern;
 import java.util.Collection;
 import java.util.Set;
 
+
+@org.hibernate.annotations.NamedQueries({
+        @org.hibernate.annotations.NamedQuery(name = "HouseHold_findByZip",
+                query = "from HouseHold where zip = :zipNo"),
+        @org.hibernate.annotations.NamedQuery(
+                name = "HouseHold_findByFirstName",
+                query = "from HouseHold where firstname = :name"),
+        @org.hibernate.annotations.NamedQuery(name = "HouseHold_findLastName",
+                query = "from HouseHold where lastname = :name"),
+        @org.hibernate.annotations.NamedQuery(name = "HouseHold_findAll",
+                query = "from HouseHold"),
+
+})
 @Entity
 public class HouseHold {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -32,10 +45,14 @@ public class HouseHold {
     private String zip;
     @Valid
     private ContactPerson contactPerson;
-    @Transient
+
+    @OneToMany(fetch = FetchType.LAZY,
+            mappedBy = "houseHold")
     @JsonIgnore // Ignorovanie danej premenej z pohladu Serializacie do
-    // Objektu JSON.Gneroval by sa obrovský JSON a dochádzalo by aj k zacykleniu
+    // objektu JSON. Generoval by sa obrovský JSON a dochádzalo by aj k
+    // zacykleniu
     private Set<AbstractData> data;
+
     @Transient
     @JsonIgnore // Ignorovanie danej premenej z pohladu Serializacie do
     // Objektu JSON.Gneroval by sa obrovský JSON a dochádzalo by aj k zacykleniu
@@ -99,7 +116,10 @@ public class HouseHold {
 
     @Override
     public boolean equals(Object o) {
-        return false;
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        HouseHold houseHold = (HouseHold) o;
+        return id != null ? id.equals(houseHold.id) : houseHold.id == null;
     }
 
     @Override
