@@ -1,11 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="DataSourceManagerImpl" format="xml" multifile-model="true">
-    <data-source source="LOCAL" name="HouseHoldDB@localhost" uuid="b9f56c69-b316-446d-b54d-3700372ffc21">
+    <data-source source="LOCAL" name="@212.26.191.77 [2]" uuid="b9f56c69-b316-446d-b54d-3700372ffc21">
       <driver-ref>mariadb</driver-ref>
       <synchronize>true</synchronize>
       <jdbc-driver>org.mariadb.jdbc.Driver</jdbc-driver>
-      <jdbc-url>jdbc:mariadb://localhost:3306/HouseHoldDB</jdbc-url>
+      <jdbc-url>jdbc:mariadb://212.26.191.77:3306</jdbc-url>
     </data-source>
     <data-source source="LOCAL" name="hibernate.cfg.xml/Hibernate" uuid="0d70fb92-5962-4f66-91b7-5b39bf1156ba">
       <driver-ref>mariadb</driver-ref>
@@ -15,7 +15,25 @@
 
 /home/martin/IdeaProjects/WeatherStation/HouseHoldServiceCopy/HouseHoldService/src/main/resources/hibernate.cfg.xml</remarks>
       <jdbc-driver>org.mariadb.jdbc.Driver</jdbc-driver>
-      <jdbc-url>jdbc:mariadb://localhost:3306/HouseHoldDB</jdbc-url>
+      <jdbc-url>jdbc:mariadb://localhost:3306</jdbc-url>
+    </data-source>
+    <data-source source="LOCAL" name="@localhost" uuid="bacf9c6e-6fe0-49f0-81ca-9759c20c6377">
+      <driver-ref>mariadb</driver-ref>
+      <synchronize>true</synchronize>
+      <jdbc-driver>org.mariadb.jdbc.Driver</jdbc-driver>
+      <jdbc-url>jdbc:mariadb://localhost:3306</jdbc-url>
+    </data-source>
+    <data-source source="LOCAL" name="HouseHoldDB@ip172-18-0-21-brmrvriosm4g00ct9nag-3306.direct.labs.play-with-docker.com [2]" uuid="bface297-64d5-4125-97fb-5d5e7ead58a6">
+      <driver-ref>mariadb</driver-ref>
+      <synchronize>true</synchronize>
+      <jdbc-driver>org.mariadb.jdbc.Driver</jdbc-driver>
+      <jdbc-url>jdbc:mariadb://ip172-18-0-21-brmrvriosm4g00ct9nag-3306.direct.labs.play-with-docker.com:3306/</jdbc-url>
+    </data-source>
+    <data-source source="LOCAL" name="@212.26.191.77" uuid="0c7e5d31-65e1-4764-b484-eef942747dd7">
+      <driver-ref>mariadb</driver-ref>
+      <synchronize>true</synchronize>
+      <jdbc-driver>org.mariadb.jdbc.Driver</jdbc-driver>
+      <jdbc-url>jdbc:mariadb://212.26.191.77:6666</jdbc-url>
     </data-source>
   </component>
 </project>
