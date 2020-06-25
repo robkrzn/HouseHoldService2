@@ -52,8 +52,10 @@ public class HouseHold {
     // objektu JSON. Generoval by sa obrovský JSON a dochádzalo by aj k
     // zacykleniu
     private Set<AbstractData> data;
+    @OneToMany(fetch = FetchType.LAZY,
+            mappedBy = "houseHold")         //podobne ako vo field
+    //@Transient
 
-    @Transient
     @JsonIgnore // Ignorovanie danej premenej z pohladu Serializacie do
     // Objektu JSON.Gneroval by sa obrovský JSON a dochádzalo by aj k zacykleniu
     private Collection<IotNode> iotNode;

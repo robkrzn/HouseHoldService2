@@ -21,6 +21,7 @@ database:
   # JDBC URL adresa, kde sa nachádza databáza
   # Databáza je spustená cez docker lokálne na porte 3306
   url: jdbc:mariadb://212.26.191.77:6666/HouseHoldDB
+   #url: jdbc:mariadb://ip172-18-0-45-brpleproudsg00eq0vvg-3306.direct.labs.play-with-docker.com/HouseHoldDB
 
   # Akékoľvek vlastnosti špecifické pre ovládač JDBC:
   # https://docs.jboss.org/hibernate/orm/5.1/userguide/html_single/Hibernate_User_Guide.html#configurations

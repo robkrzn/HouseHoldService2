@@ -15,7 +15,7 @@ public class DeleteHealthCheck extends HealthCheck {
     @Override
     @UnitOfWork
     protected Result check() throws Exception {
-        fieldDAO.delete("weather");
+        //fieldDAO.delete("weather");
         return Result.healthy();
     }
 }
