@@ -18,7 +18,6 @@ public class IotNodeDAO extends AbstractDAO<IotNode> {
     }
 
     public IotNode create(IotNode iotNode) {
-        //System.out.println("1111111111111111111111111111House hold "+iotNode.getHouseHold().getCity());   //pomocny vypis
         currentSession().save(iotNode);
         return iotNode;
     }

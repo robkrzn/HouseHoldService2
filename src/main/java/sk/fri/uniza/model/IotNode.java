@@ -20,19 +20,16 @@ import javax.persistence.*;
 
 public class IotNode {
 
-
-    @Id
     @GeneratedValue(strategy =  GenerationType.IDENTITY)
-    @ApiModelProperty(accessMode =  ApiModelProperty.AccessMode.READ_ONLY)  //rovnako ako houseHold
+    @Id
     private Long id;
 
     @NotEmpty
     private String Name;
 
 
-    @ManyToOne
-    //@JoinColumn(name="houseHold_id", nullable=false) //ako z 4. The Models
-    @JoinColumn(name="houseHold_id", insertable = false , nullable=false) //ako z 4. The Models
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name="houseHold_id", nullable=false) //ako z 4. The Models
     private HouseHold houseHold;
 
     public Long getId() {
